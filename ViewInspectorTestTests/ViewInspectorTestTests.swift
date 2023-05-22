@@ -13,13 +13,12 @@ import Combine
 
 final class ViewInspectorTestTests: XCTestCase {
 
-	func testAlertShowsAfterButtonIsTapped() throws {
-		let binding = Binding(wrappedValue: false)
+	func testButtonPressChangesStateInsideView() throws {
 		let sut = makeSUT()
 		
 		let exp = sut.inspection.inspect { view in
 			try view.vStack().button(0).tap()
-			XCTAssertEqual(try? view.find(ViewType.Text.self).string(), "State is false")
+			XCTAssertEqual(try? view.find(ViewType.Text.self).string(), "State is false", "Expected state to change on button press")
 		}
 		
 		ViewHosting.host(view: sut)
